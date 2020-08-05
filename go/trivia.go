@@ -65,30 +65,30 @@ func (me *Game) Add(playerName string) bool {
 	me.inPenaltyBox[me.howManyPlayers()] = false
 
 	fmt.Fprintf(output, "%s was added\n", playerName)
-	fmt.Fprintf(output,"They are player number %d\n", len(me.players))
+	fmt.Fprintf(output, "They are player number %d\n", len(me.players))
 
 	return true
 }
 
 func (me *Game) Roll(roll int) {
-	fmt.Fprintf(output,"%s is the current player\n", me.players[me.currentPlayer])
-	fmt.Fprintf(output,"They have rolled a %d\n", roll)
+	fmt.Fprintf(output, "%s is the current player\n", me.players[me.currentPlayer])
+	fmt.Fprintf(output, "They have rolled a %d\n", roll)
 
 	if me.inPenaltyBox[me.currentPlayer] {
 		if roll%2 != 0 {
 			me.isGettingOutOfPenaltyBox = true
 
-			fmt.Fprintf(output,"%s is getting out of the penalty box\n", me.players[me.currentPlayer])
+			fmt.Fprintf(output, "%s is getting out of the penalty box\n", me.players[me.currentPlayer])
 			me.places[me.currentPlayer] = me.places[me.currentPlayer] + roll
 			if me.places[me.currentPlayer] > 11 {
 				me.places[me.currentPlayer] = me.places[me.currentPlayer] - 12
 			}
 
-			fmt.Fprintf(output,"%s's new location is %d\n", me.players[me.currentPlayer], me.places[me.currentPlayer])
-			fmt.Fprintf(output,"The category is %s\n", me.currentCategory())
+			fmt.Fprintf(output, "%s's new location is %d\n", me.players[me.currentPlayer], me.places[me.currentPlayer])
+			fmt.Fprintf(output, "The category is %s\n", me.currentCategory())
 			me.askQuestion()
 		} else {
-			fmt.Fprintf(output,"%s is not getting out of the penalty box\n", me.players[me.currentPlayer])
+			fmt.Fprintf(output, "%s is not getting out of the penalty box\n", me.players[me.currentPlayer])
 			me.isGettingOutOfPenaltyBox = false
 		}
 	} else {
@@ -97,8 +97,8 @@ func (me *Game) Roll(roll int) {
 			me.places[me.currentPlayer] = me.places[me.currentPlayer] - 12
 		}
 
-		fmt.Fprintf(output,"%s's new location is %d\n", me.players[me.currentPlayer], me.places[me.currentPlayer])
-		fmt.Fprintf(output,"The category is %s\n", me.currentCategory())
+		fmt.Fprintf(output, "%s's new location is %d\n", me.players[me.currentPlayer], me.places[me.currentPlayer])
+		fmt.Fprintf(output, "The category is %s\n", me.currentCategory())
 		me.askQuestion()
 	}
 }
@@ -107,22 +107,22 @@ func (me *Game) askQuestion() {
 	if me.currentCategory() == "Pop" {
 		question := me.popQuestions[0]
 		me.popQuestions = me.popQuestions[1:]
-		fmt.Fprintf(output,question)
+		fmt.Fprintf(output, question)
 	}
 	if me.currentCategory() == "Science" {
 		question := me.scienceQuestions[0]
 		me.scienceQuestions = me.scienceQuestions[1:]
-		fmt.Fprintf(output,question)
+		fmt.Fprintf(output, question)
 	}
 	if me.currentCategory() == "Sports" {
 		question := me.sportsQuestions[0]
 		me.sportsQuestions = me.sportsQuestions[1:]
-		fmt.Fprintf(output,question)
+		fmt.Fprintf(output, question)
 	}
 	if me.currentCategory() == "Rock" {
 		question := me.rockQuestions[0]
 		me.rockQuestions = me.rockQuestions[1:]
-		fmt.Fprintf(output,question)
+		fmt.Fprintf(output, question)
 	}
 }
 
@@ -160,9 +160,9 @@ func (me *Game) currentCategory() string {
 func (me *Game) WasCorrectlyAnswered() bool {
 	if me.inPenaltyBox[me.currentPlayer] {
 		if me.isGettingOutOfPenaltyBox {
-			fmt.Println("Answer was correct!!!!")
+			fmt.Fprintln(output, "Answer was correct!!!!")
 			me.purses[me.currentPlayer] += 1
-			fmt.Fprintf(output,"%s now has %d Gold Coins.\n", me.players[me.currentPlayer], me.purses[me.currentPlayer])
+			fmt.Fprintf(output, "%s now has %d Gold Coins.\n", me.players[me.currentPlayer], me.purses[me.currentPlayer])
 
 			winner := me.didPlayerWin()
 			me.currentPlayer += 1
@@ -180,9 +180,9 @@ func (me *Game) WasCorrectlyAnswered() bool {
 		}
 	} else {
 
-		fmt.Println("Answer was corrent!!!!")
+		fmt.Fprintln(output, "Answer was corrent!!!!")
 		me.purses[me.currentPlayer] += 1
-		fmt.Fprintf(output,"%s now has %d Gold Coins.\n", me.players[me.currentPlayer], me.purses[me.currentPlayer])
+		fmt.Fprintf(output, "%s now has %d Gold Coins.\n", me.players[me.currentPlayer], me.purses[me.currentPlayer])
 
 		winner := me.didPlayerWin()
 		me.currentPlayer += 1
@@ -201,8 +201,8 @@ func (me *Game) didPlayerWin() bool {
 }
 
 func (me *Game) WrongAnswer() bool {
-	fmt.Println("Question was incorrectly answered")
-	fmt.Fprintf(output,"%s was sent to the penalty box\n", me.players[me.currentPlayer])
+	fmt.Fprintln(output, "Question was incorrectly answered")
+	fmt.Fprintf(output, "%s was sent to the penalty box\n", me.players[me.currentPlayer])
 	me.inPenaltyBox[me.currentPlayer] = true
 
 	me.currentPlayer += 1

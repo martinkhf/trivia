@@ -1,10 +1,15 @@
 package main
 
 import (
+	"bytes"
+	"math/rand"
 	"testing"
 )
 
 func TestGame(t *testing.T) {
+
+	output = new(bytes.Buffer)
+
 	notAWinner := false
 
 	game := NewGame()
