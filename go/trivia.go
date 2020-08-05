@@ -3,7 +3,10 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
 )
+
+var output = os.Stdout
 
 type Game struct {
 	players      []string
@@ -30,7 +33,7 @@ func NewGame() *Game {
 
 	for i := 0; i < 50; i++ {
 		game.popQuestions = append(game.popQuestions,
-			fmt.Sprintf("Pop Question %d\n", i))
+			fmt.Fprintf(output, "Pop Question %d\n", i))
 		game.scienceQuestions = append(game.scienceQuestions,
 			fmt.Sprintf("Science Question %d\n", i))
 		game.sportsQuestions = append(game.sportsQuestions,
