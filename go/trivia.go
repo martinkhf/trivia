@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math/rand"
-	"time"
 )
 
 type Game struct {
@@ -219,7 +218,7 @@ func main() {
 	game.Add("Pat")
 	game.Add("Sue")
 
-	rand.Seed(time.Now().UTC().UnixNano())
+	//rand.Seed(time.Now().UTC().UnixNano())
 
 	for {
 		game.Roll(rand.Intn(5) + 1)
@@ -228,7 +227,6 @@ func main() {
 			notAWinner = game.WrongAnswer()
 		} else {
 			notAWinner = game.WasCorrectlyAnswered()
-
 		}
 
 		if !notAWinner {
